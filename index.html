@@ -22,17 +22,32 @@
 
 				<form ng-submit="addTodo()">
           <input type="text" ng-model="newTodo">
+        	<div class="input-group">
+	          <input name="taskType" type="radio" value="home" ng-model="taskType">Home
+	          <input name="taskType" type="radio" value="work" ng-model="taskType">Work
+          </div>
           <button type="submit"class="btn-default">New Todo</button>
         </form>
+
+        <div>
+          <label for="type">Task Type</label>
+          <select id="type"
+          	ng-model="selectedTodo"
+          	ng-options="item.name group by item.type for item in tasks">
+          </select>
+        </div>
+
+         <div>
+          <h2>You have selected {{selectedTodo.name}}</h2>
+        </div>
 
       	<div>
       		<!-- below, ng-repeat = "look at each thing in scope.task var"
       		ng-repeat happens once for each item within ng-repeat-->
       		<!-- <ul ng-repeat="eachItem in tasks"> -->
-      		<ul ng-repeat="eachItem in tasks | filter: potato | filter: filter2">
+      		<ul ng-repeat="eachItem in tasks | filter: potato">
       			<!-- "eachItem" is like an arg, just a name, passed in, not real -->
-
-      			<li>{{eachItem.name}} <button ng-click="removeTodo(var_name)">Delete</button><!-- {{eachItem.type}} --></li>
+      			<li>{{eachItem.name}} <button ng-click="removeTodo(eachItem)">Delete</button><!-- {{eachItem.type}} --></li>
       		</ul>
       	</div>
       </div>
